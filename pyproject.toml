@@ -1,0 +1,60 @@
+[project]
+name = "monochromize"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+]
+scripts = { "monochromize" = "monochromize.__main__:main" }
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pre-commit (>=4.3.0,<5.0.0)",
+    "ruff (>=0.14.4,<0.15.0)",
+    "mypy (>=1.18.2,<2.0.0)",
+    "icecream (>=2.1.8,<3.0.0)",
+    "poethepoet (>=0.37.0,<0.38.0)"
+]
+
+[tool.ruff]
+fix = true
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle
+    "F",    # Pyflakes
+    "I",    # isort
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = -1 # Use a single line after each import block.
+
+[tool.ruff.lint.pydocstyle]
+convention = "google" # Use Google-style docstrings.
+
+[tool.mypy]
+ignore_missing_imports = true
+enable_incomplete_feature = "Unpack"
+
+[tool.poe.executor]
+type = "virtualenv"
+location = ".venv"
+
+[tool.poe.tasks."setup:pre-commit"]
+cmd = "pre-commit install"
+help = "install pre-commit hooks"
+
+[tool.poe.tasks.run]
+cmd = "python -m monochromize"
+help = "monochromize an image"

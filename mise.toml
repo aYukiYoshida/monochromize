@@ -1,0 +1,21 @@
+[env]
+_.path = [
+    "{{config_root}}/.venv/bin",
+]
+
+[tools]
+poetry = "2.2.1"
+python = "latest"
+
+[tasks."setup:deps"]
+run = "poetry install"
+
+[tasks."setup:pre-commit"]
+run = "poetry run poe setup:pre-commit"
+depends = ["setup:deps"]
+
+[tasks.setup]
+depends = ["setup:*"]
+
+[tasks.monochromize]
+run = "poetry run poe run"
